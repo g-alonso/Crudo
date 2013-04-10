@@ -1,0 +1,30 @@
+{% extends "base.twig" %}
+
+{% block content %}
+{% if is_granted('ROLE_USER') %}
+<p>Welcome {{ app.security.token.user.username }}!</p>
+<p><a href="{{ path('logout') }}">Log out</a></p>
+{% else %}
+<div class="container">
+    <div class="row">
+        <div class="span4 offset4 well">
+            <legend>Please Sign In</legend>
+             {% if error %}
+            <div class="alert alert-error">
+                <a class="close" data-dismiss="alert" href="#">×</a>Incorrect Username or Password!
+            </div>
+            {% endif %}
+            <form action="{{ path('logincheck') }}" method="post">
+
+                 {{ form_widget(form) }}
+
+                <button type="submit" name="submit" class="btn btn-warning btn-block">Sign in</button>
+            </form>    
+        </div>
+    </div>
+</div>
+{% endif %}
+{% endblock %}
+
+
+

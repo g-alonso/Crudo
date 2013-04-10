@@ -1,0 +1,22 @@
+{% extends "base.twig" %}
+
+{% block content %}
+<div class="well">
+    <ul class="nav nav-tabs">
+        <li class="active"><a href="#home" data-toggle="tab">User</a></li>
+
+    </ul>
+    <div id="myTabContent" class="tab-content">
+        <div class="tab-pane active in" id="home">
+            <form id="tab" method="POST" action="{{ app.baseUrl }}user/add">
+                    {{ form_widget(form) }}
+                    <div>
+                        <button class="btn btn-primary">Update</button>
+                        <a href="{{path("user.list")}}" class="btn danger btn-danger">Cancel</a>
+                    </div>
+                </form>
+            </div>
+
+        </div>
+    </div>
+{% endblock %}

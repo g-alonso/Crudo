@@ -1,0 +1,27 @@
+{
+    "require":          
+    {
+        "php":                          ">=5.3.3",       
+        "symfony/finder":               "*",
+        "symfony/console":              "*",
+        "symfony/event-dispatcher":     "*",
+        "symfony/yaml":                 "*",
+        "symfony/filesystem":           "*",        
+        "doctrine/orm": "*",
+        "silex/silex": "1.0.*@dev",
+        "twig/twig": ">=1.8,<2.0-dev",
+        "symfony/security": "~2.1",
+        "symfony/twig-bridge": "2.1.*",
+        "symfony/form": "~2.1.4",
+        "symfony/config": "~2.1",
+        "symfony/translation": "~2.1",
+        "symfony/validator": "~2.1",
+        "pagerfanta/pagerfanta": "1.0.*@dev",
+        "franmomu/silex-pagerfanta-provider": "1.0.*@dev"
+    },
+    "autoload":{
+        "psr-0":{
+            "Crudo": "src"
+        }
+    }
+}

@@ -1,0 +1,98 @@
+{% extends "base.twig" %}
+
+{% block content %}
+<form class="form-search" method="GET" action {{ path('user.list') }}>
+    Search by username: 
+
+    <input class="span2"  name="keyword" id="appendedInputButtons" value="{{keyword}}" type="text">
+    <button type="submit" class="btn">Search</button>
+
+{% if keyword != false %}
+    <a class="btn danger btn-danger" href="{{path("user.list")}}">Remove Filter</a>
+{% endif %}
+
+</form>   
+
+<div class="well">
+{% if app.session.hasFlash('success') %}
+        <div class="alert alert-success">
+            <a class="close" data-dismiss="alert" href="#">×</a>{{ app.session.flash('success') }} 
+        </div>
+{% endif %}
+{% if app.session.hasFlash('error') %}
+        <div class="alert alert-error">
+            <a class="close" data-dismiss="alert" href="#">×</a>{{ app.session.flash('error') }} 
+        </div>
+{% endif %}
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>#</th>
+                    <th>First Name</th>
+                    <th>Last Name</th>
+                    <th>Username</th>
+                    <th>Email</th>
+                    <th>Roles</th>
+                    <th style="width: 36px;"></th>
+                </tr>
+            </thead>
+            <tbody>
+            {% if my_pager.currentPageResults|length > 0 %}
+                {% for key, user in my_pager.currentPageResults %}
+                    <tr>
+                        <td>{{ user.id }}</td>
+                        <td>{{ user.name }}</td>
+                        <td>{{ user.surname }}</td>
+                        <td>{{ user.username }}</td>
+                        <td>{{ user.email }}</td>
+                        <td>{{ user.roles }}</td>
+                        <td>
+                            <div class="btn-group" data-toggle="buttons-radio">
+                                <a href="{{path("user.edit", {'id':user.id})}}" class="btn btn-info">Edit</a>
+                                <a href="#" data-id="{{path("user.delete", {'id':user.id})}}" class="confirm-delete btn btn-danger">Delete</a>
+                            </div>                            
+                        </td>
+                    </tr>        
+               {% endfor %}
+            {% else %}
+                    <tr>
+                        <td colspan="7">No results</td>                
+                    </tr>       
+            {% endif %}
+                </tbody>
+            </table>
+        </div>
+
+{{ pagination | raw}}
+
+        <div class="modal small hide fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+                <h3 id="myModalLabel">Delete Confirmation</h3>
+            </div>
+            <div class="modal-body">
+                <p class="error-text">Are you sure you want to delete the user?</p>
+            </div>
+            <div class="modal-footer">
+                <button class="btn" data-dismiss="modal" aria-hidden="true">Cancel</button>        
+                <a href="#" class="btn danger btn-danger">Yes</a>
+            </div>
+        </div>
+
+        <script>
+        $('.confirm-delete').on('click', function(e) {    
+              e.stopImmediatePropagation();
+    $(this).removeClass('active');
+            var id = $(this).data('id');                            
+            $('#myModal').data('id', id).modal('show');                         
+        });
+
+        $('#myModal').on('show', function() {
+             
+            var id = $(this).data('id'),
+            removeBtn = $(this).find('.danger');
+            removeBtn.attr('href',  id);      
+        })
+            </script>
+
+{% endblock %}

@@ -1,0 +1,10 @@
+url:
+  base_url: http://127.0.0.1/dev/crudo/www/
+db:
+  dbname: crudo
+  user: root
+  password: 123456
+  host: 127.0.0.1  
+  driver: pdo_mysql
+pagination:
+  per_page: 10
