@@ -1,9 +1,9 @@
 url:
-  base_url: http://127.0.0.1/dev/crudo/www/
+  base_url: http://127.0.0.1/karmatica/Crudo/www/
 db:
   dbname: crudo
   user: root
-  password: 123456
+  password:
   host: 127.0.0.1  
   driver: pdo_mysql
 pagination:
