@@ -1,5 +1,5 @@
 url:
-  base_url: http://127.0.0.1/karmatica/Crudo/www/
+  base_url: http://127.0.0.1/Crudo/www/
 db:
   dbname: crudo
   user: root
