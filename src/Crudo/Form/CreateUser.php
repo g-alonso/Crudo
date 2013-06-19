@@ -19,10 +19,10 @@ class CreateUser extends AbstractType {
 
         $app = $this->app;
 
-        $builder->add('name', "text", array("constraints" => array(new Assert\NotBlank(), new Assert\MinLength(3))));
-        $builder->add('surname', "text", array("constraints" => array(new Assert\NotBlank(), new Assert\MinLength(3))));
+        $builder->add('name', "text", array("constraints" => array(new Assert\NotBlank(), new Assert\Length(array('min' => 3)))));
+        $builder->add('surname', "text", array("constraints" => array(new Assert\NotBlank(), new Assert\Length(array('min' => 3)))));
         $builder->add('username', "text", array(
-            "constraints" => array(new Assert\NotBlank(), new Assert\MinLength(5), new Assert\Callback(array(
+            "constraints" => array(new Assert\NotBlank(), new Assert\Length(array('min' => 3)), new Assert\Callback(array(
                     "methods" => array(function ($username, ExecutionContext $context) use ($app) {
                             $user = $app['entityManager']->getRepository('Crudo\Entity\User')->findBy(array('username' => $username));
                             if (count($user) > 0) {

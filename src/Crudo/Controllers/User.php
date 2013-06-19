@@ -84,7 +84,7 @@ class User implements ControllerProviderInterface
                             $app['entityManager']->persist($entity);
                             $app['entityManager']->flush();
 
-                            $app["session"]->setFlash("success", "The user has been added.");
+                            $app['session']->getFlashBag()->add('success', 'The user has been added');
 
                             return $app->redirect($app["url_generator"]->generate('user.list'));
                         }
@@ -115,7 +115,7 @@ class User implements ControllerProviderInterface
 
                             $startTab = "password";
 
-                            $formPassword->bindRequest($app["request"]);
+                            $formPassword->bind($app["request"]);
 
                             if ($formPassword->isValid()) {
 
@@ -128,13 +128,13 @@ class User implements ControllerProviderInterface
                                 $app['entityManager']->merge($user[0]);
                                 $app['entityManager']->flush();
 
-                                $app["session"]->setFlash("success", "The password has been updated.");
-
+                                $app['session']->getFlashBag()->add('success', 'The password has been updated');
+                                
                                 return $app->redirect($app["url_generator"]->generate('user.list'));
                             }
                         } else {
 
-                            $formEdit->bindRequest($app["request"]);
+                            $formEdit->bind($app["request"]);
 
                             if ($formEdit->isValid()) {
 
@@ -149,7 +149,7 @@ class User implements ControllerProviderInterface
                                 $app['entityManager']->merge($user[0]);
                                 $app['entityManager']->flush();
 
-                                $app["session"]->setFlash("success", "The user has been updated.");
+                                $app['session']->getFlashBag()->add('success', 'The user has been updated');
 
                                 return $app->redirect($app["url_generator"]->generate('user.list'));
                             }
@@ -179,7 +179,7 @@ class User implements ControllerProviderInterface
                     $app['entityManager']->remove($user[0]);
                     $app['entityManager']->flush();
 
-                    $app["session"]->setFlash("success", "The user has been deleted.");
+                    $app['session']->getFlashBag()->add('success', 'The user has been deleted');
 
                     return $app->redirect($app["url_generator"]->generate('user.list'));
                 })->bind("user.delete");
